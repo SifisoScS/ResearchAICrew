@@ -11,5 +11,9 @@ class ResearchProfessor(ResearchAgent):
         return {
             "topic": topic,
             "hypothesis": f"Can {topic} improve efficiency by 20% using advanced ML techniques?",
-            "research_plan": ["Literature review", "Identify gaps", "Propose ML model"]
-        } 
+            "research_plan": [
+                "Conduct literature review on ML applications",
+                "Identify gaps in current {topic} implementations",
+                "Propose a supervised ML model for optimization"
+            ]
+        }
