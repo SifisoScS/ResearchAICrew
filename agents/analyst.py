@@ -18,26 +18,34 @@ class ResearchAnalyst(ResearchAgent):
         data = pd.read_csv(input_file)
         avg_gain = data['efficiency_gain'].mean()
         
-        # Train and test ML model
-        X = data[['training_hours']]
-        y = data['efficiency_gain']
-        model = LinearRegression()
-        model.fit(X, y)
-        r_squared = model.score(X, y)
-        predicted_gain = model.predict([[14]])[0]
+        # Efficiency model
+        X_eff = data[['training_hours']]
+        y_eff = data['efficiency_gain']
+        eff_model = LinearRegression()
+        eff_model.fit(X_eff, y_eff)
+        eff_r_squared = eff_model.score(X_eff, y_eff)
+        eff_pred = eff_model.predict(pd.DataFrame([[14]], columns=['training_hours']))[0]
+        
+        # Outcome model
+        X_out = data[['training_hours']]
+        y_out = data['outcome_improvement']
+        out_model = LinearRegression()
+        out_model.fit(X_out, y_out)
+        out_r_squared = out_model.score(X_out, y_out)
+        out_pred = out_model.predict(pd.DataFrame([[14]], columns=['training_hours']))[0]
         
         # Log model details
         with open("data/output/model_log.txt", "a") as f:
-            f.write(f"{time.ctime()}: Model for {hypothesis['topic']} - R²={r_squared:.2f}, Slope={model.coef_[0]:.2f}\n")
+            f.write(f"{time.ctime()}: Efficiency Model - R²={eff_r_squared:.2f}, Outcome Model - R²={out_r_squared:.2f}\n")
         
-        # Actionable insight
-        recommendation = "Increase training hours to 14+ for optimal efficiency" if predicted_gain > avg_gain else "Optimize current training process"
+        recommendation = "Increase training hours to 14+ for optimal efficiency and outcomes" if eff_pred > avg_gain else "Optimize current training process"
         
         return {
             "topic": hypothesis["topic"],
             "insights": (
-                f"Analysis of {len(data)} records shows average {avg_gain:.1f}% efficiency gain. "
-                f"Linear model (R²={r_squared:.2f}) predicts {predicted_gain:.1f}% gain for 14 hours. "
+                f"Analysis of {len(data)} records: avg efficiency {avg_gain:.1f}%, "
+                f"efficiency model (R²={eff_r_squared:.2f}) predicts {eff_pred:.1f}% for 14 hours, "
+                f"outcome model (R²={out_r_squared:.2f}) predicts {out_pred:.1f}% improvement. "
                 f"Recommendation: {recommendation}."
             )
         }
