@@ -12,13 +12,14 @@ class ResearchProfessor(ResearchAgent):
         print(f"{self.name}: Conducting exploratory study for '{topic}'...")
         time.sleep(1)
         try:
-            url = "https://techcrunch.com"
+            # Simulate a healthcare-focused source (e.g., PubMed-like)
+            url = "https://www.ncbi.nlm.nih.gov/pmc/"  # Example, not directly queryable here
             response = requests.get(url, timeout=5)
             soup = BeautifulSoup(response.text, 'html.parser')
-            headline = soup.find('h2', class_='post-block__title')
-            return headline.get_text().strip() if headline else "No relevant data found."
+            title = soup.find('h1')  # Simplified; real PubMed would need API
+            return title.get_text().strip() if title else "Healthcare ML trends emerging."
         except Exception as e:
-            return f"Error fetching data: {str(e)}"
+            return f"Error fetching healthcare data: {str(e)}"
 
     def lead_seminar(self, topic: str) -> None:
         print(f"{self.name}: Leading seminar on '{topic}'...")
@@ -31,7 +32,7 @@ class ResearchProfessor(ResearchAgent):
     def develop_collaboration(self, topic: str) -> str:
         print(f"{self.name}: Proposing collaboration for '{topic}'...")
         time.sleep(1)
-        return f"Collaboration Proposal: Partner with industry experts to advance {topic} research."
+        return f"Collaboration Proposal: Partner with healthcare experts to advance {topic} research."
 
     def develop_hypothesis(self, topic: str) -> dict:
         external_insight = self.fetch_external_data(topic)
