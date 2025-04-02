@@ -21,7 +21,7 @@ class ResearchProfessor(ResearchAgent):
             root = ET.fromstring(response.text)
             id_elem = root.find(".//Id")
             if id_elem is None:
-                return "No recent healthcare ML studies found."
+                return f"No recent ML studies found for {topic}."
             pmc_id = id_elem.text
             
             # Fetch article summary
@@ -30,7 +30,9 @@ class ResearchProfessor(ResearchAgent):
             fetch_response = requests.get(fetch_url, params=fetch_params, timeout=5)
             fetch_root = ET.fromstring(fetch_response.text)
             title_elem = fetch_root.find(".//Item[@Name='Title']")
-            return title_elem.text if title_elem is not None else "Healthcare ML study found."
+            title = title_elem.text if title_elem is not None else "Healthcare ML study found."
+            # Check if topic is in title, fallback if not
+            return title if topic.lower() in title.lower() else f"ML study related to {topic}"
         except Exception as e:
             return f"Error fetching PubMed data: {str(e)}"
 

@@ -4,3 +4,6 @@ Wed Apr  2 21:29:05 2025: Published Machine Learning in Healthcare to Tech AI Jo
 Wed Apr  2 21:34:47 2025: Published Machine Learning in Healthcare to Tech AI Journal
 Wed Apr  2 21:55:35 2025: Published Machine Learning in Healthcare to Tech AI Journal
 Wed Apr  2 22:02:48 2025: Published AI in Healthcare to Tech AI Journal
+Wed Apr  2 22:20:21 2025: Published Lung cancer to Tech AI Journal
+Wed Apr  2 22:22:19 2025: Published Brain cancer to Tech AI Journal
+Wed Apr  2 22:23:41 2025: Published Prostate cancer to Tech AI Journal
