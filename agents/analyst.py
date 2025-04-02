@@ -24,7 +24,10 @@ class ResearchAnalyst(ResearchAgent):
         model = LinearRegression()
         model.fit(X, y)
         r_squared = model.score(X, y)
-        predicted_gain = model.predict([[14]])[0]
+        
+        # Predict with DataFrame to match training format
+        prediction_data = pd.DataFrame([[14]], columns=['training_hours'])
+        predicted_gain = model.predict(prediction_data)[0]
         
         # Log model details
         with open("data/output/model_log.txt", "a") as f:
