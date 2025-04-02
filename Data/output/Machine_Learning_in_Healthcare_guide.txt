@@ -1,0 +1,4 @@
+User Guide: Implementing ML in Machine Learning in Healthcare
+1. Collect data
+2. Train model
+3. Evaluate results
