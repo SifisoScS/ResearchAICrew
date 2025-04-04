@@ -10,3 +10,20 @@ Wed Apr  2 21:28:54 2025: Seminar Notes for Machine Learning in Healthcare: Focu
 Wed Apr  2 21:34:36 2025: Seminar Notes for Machine Learning in Healthcare: Focus on ML trends and research gaps.
 Wed Apr  2 21:55:25 2025: Seminar Notes for Machine Learning in Healthcare: Focus on ML trends and research gaps.
 Wed Apr  2 22:02:37 2025: Seminar Notes for AI in Healthcare: Focus on ML trends and research gaps.
+Wed Apr  2 22:15:04 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.
+Wed Apr  2 22:16:11 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.
+Wed Apr  2 22:20:11 2025: Seminar Notes for Lung cancer: Focus on ML trends and research gaps.
+Wed Apr  2 22:22:09 2025: Seminar Notes for Brain cancer: Focus on ML trends and research gaps.
+Wed Apr  2 22:23:31 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.
+Thu Apr  3 20:19:34 2025: Seminar Notes for Alzheimers: Focus on ML trends and research gaps.
+Thu Apr  3 20:30:15 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.
+Thu Apr  3 20:39:05 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.
+Thu Apr  3 21:35:42 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.
+Thu Apr  3 21:41:31 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.
+Thu Apr  3 21:43:56 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.
+Thu Apr  3 22:06:24 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.
+Thu Apr  3 22:23:53 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.
+Thu Apr  3 22:28:35 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.
+Thu Apr  3 22:50:16 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.
+Thu Apr  3 22:53:05 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.
+Fri Apr  4 16:44:01 2025: Seminar Notes for Prostate cancer: Focus on ML trends and research gaps.

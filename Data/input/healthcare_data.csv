@@ -1,6 +1,6 @@
-efficiency_gain,training_hours,outcome_improvement
-18,10,85
-20,12,88
-22,15,92
-19,11,87
-21,13,90
+efficiency_gain,training_hours,outcome_improvement,cost_reduction
+18,10,85,5
+20,12,88,6
+22,15,92,8
+19,11,87,5.5
+21,13,90,7
