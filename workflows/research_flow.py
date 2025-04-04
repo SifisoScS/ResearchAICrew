@@ -3,24 +3,29 @@ from agents.analyst import ResearchAnalyst
 from agents.writer import ResearchTechnicalWriter
 
 def research_workflow(topic: str):
+    print(f"Starting research on: {topic}\n")
+    
+    # Initialize agents
     professor = ResearchProfessor()
     analyst = ResearchAnalyst()
-    writer = ResearchTechnicalWriter()
-
-    print(professor.report_status())
+    writer = ResearchTechnicalWriter()  # Already has args in __init__, no need to pass here
+    
+    # Research process
+    print(f"{professor.name} ({professor.role}) is ready to contribute!")
     hypothesis = professor.develop_hypothesis(topic)
     print(f"Hypothesis v{hypothesis['version']}: {hypothesis['hypothesis']}\n")
-
-    print(analyst.report_status())
+    
+    print(f"{analyst.name} ({analyst.role}) is ready to contribute!")
     analysis = analyst.analyze_data(hypothesis)
     print(f"Insights: {analysis['insights']}\n")
-
-    print(professor.report_status())
+    
+    print(f"{professor.name} ({professor.role}) is ready to contribute!")
     refined_hypothesis = professor.review_analysis(hypothesis, analysis)
     print(f"Refined Hypothesis v{refined_hypothesis['version']}: {refined_hypothesis['hypothesis']}\n")
-
-    print(writer.report_status())
+    
+    print(f"{writer.name} ({writer.role}) is ready to contribute!")
     report = writer.write_report(refined_hypothesis, analysis)
-    writer.draft_user_guide(refined_hypothesis['topic'])
-    writer.publish(refined_hypothesis['topic'])
-    print(f"Report:\n{report}")
+    writer.draft_user_guide(topic)
+    writer.publish(topic)
+    print("Report:")
+    print(report)
