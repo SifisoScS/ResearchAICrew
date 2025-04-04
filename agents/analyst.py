@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler
 
 class ResearchAnalyst(ResearchAgent):
     def __init__(self):
-        super().__init__("Analyst AI", "Research Analyst", 10)  # Name, role, experience level
+        super().__init__("Analyst AI", "Research Analyst", 10)
 
     def fetch_prostate_cancer_data(self, topic: str) -> pd.DataFrame:
         print(f"{self.name}: Fetching topic-specific data for '{topic}'...")
@@ -40,8 +40,16 @@ class ResearchAnalyst(ResearchAgent):
         X = data[['training_hours']].values
         y_eff = data['efficiency_gain'].values
         y_out = data['outcome_improvement'].values
-        scaler = StandardScaler()
-        X_scaled = scaler.fit_transform(X)
+        
+        # Scale features and targets
+        scaler_X = StandardScaler()
+        X_scaled = scaler_X.fit_transform(X)
+        
+        scaler_eff = StandardScaler()
+        y_eff_scaled = scaler_eff.fit_transform(y_eff.reshape(-1, 1)).flatten()
+        
+        scaler_out = StandardScaler()
+        y_out_scaled = scaler_out.fit_transform(y_out.reshape(-1, 1)).flatten()
         
         # Neural network for efficiency
         eff_model = Sequential([
@@ -51,8 +59,9 @@ class ResearchAnalyst(ResearchAgent):
             Dense(1)
         ])
         eff_model.compile(optimizer='adam', loss='mse')
-        eff_model.fit(X_scaled, y_eff, epochs=200, batch_size=2, verbose=0)
-        eff_pred = float(eff_model.predict(scaler.transform([[14]]), verbose=0)[0][0])
+        eff_model.fit(X_scaled, y_eff_scaled, epochs=200, batch_size=2, verbose=0)
+        eff_pred_scaled = eff_model.predict(scaler_X.transform([[14]]), verbose=0)[0][0]
+        eff_pred = float(scaler_eff.inverse_transform([[eff_pred_scaled]])[0][0])
         
         # Neural network for outcome
         out_model = Sequential([
@@ -62,8 +71,9 @@ class ResearchAnalyst(ResearchAgent):
             Dense(1)
         ])
         out_model.compile(optimizer='adam', loss='mse')
-        out_model.fit(X_scaled, y_out, epochs=200, batch_size=2, verbose=0)
-        out_pred = float(out_model.predict(scaler.transform([[14]]), verbose=0)[0][0])
+        out_model.fit(X_scaled, y_out_scaled, epochs=200, batch_size=2, verbose=0)
+        out_pred_scaled = out_model.predict(scaler_X.transform([[14]]), verbose=0)[0][0]
+        out_pred = float(scaler_out.inverse_transform([[out_pred_scaled]])[0][0])
         
         # Metrics
         avg_gain = data['efficiency_gain'].mean()
