@@ -8,7 +8,7 @@ def research_workflow(topic: str):
     # Initialize agents
     professor = ResearchProfessor()
     analyst = ResearchAnalyst()
-    writer = ResearchTechnicalWriter()  # Already has args in __init__, no need to pass here
+    writer = ResearchTechnicalWriter()
     
     # Research process
     print(f"{professor.name} ({professor.role}) is ready to contribute!")
@@ -29,3 +29,5 @@ def research_workflow(topic: str):
     writer.publish(topic)
     print("Report:")
     print(report)
+    
+    return report  # Return report for Flask 
