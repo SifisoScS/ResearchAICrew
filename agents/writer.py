@@ -7,7 +7,7 @@ import numpy as np
 
 class ResearchTechnicalWriter(ResearchAgent):
     def __init__(self):
-        super().__init__("Writer AI", "Research Technical Writer", 10)  # Pass name, role, experience_level
+        super().__init__("Writer AI", "Research Technical Writer", 10)  # Name, role, experience level
 
     def write_report(self, hypothesis: dict, analysis: dict) -> str:
         print(f"{self.name}: Writing report for '{hypothesis['topic']}'...")
@@ -28,7 +28,7 @@ class ResearchTechnicalWriter(ResearchAgent):
         except Exception as e:
             print(f"{self.name}: Failed to save report: {e}")
         
-        white_paper = f"White Paper: {hypothesis['topic']} - Detailed analysis.\n\n{report}"
+        white_paper = f"White Paper: {hypothesis['topic']} - Detailed analysis and future directions.\n\n{report}"
         white_paper_file = f"{output_dir}/{hypothesis['topic'].replace(' ', '_')}_white_paper.txt"
         try:
             with open(white_paper_file, "w") as f:
@@ -83,12 +83,21 @@ class ResearchTechnicalWriter(ResearchAgent):
         print(f"{self.name}: Drafting user guide for '{topic}'...")
         time.sleep(1)
         guide = f"User Guide: Implementing ML in {topic}\n1. Collect data\n2. Train model\n3. Evaluate results"
-        with open(f"data/output/{topic.replace(' ', '_')}_guide.txt", "w") as f:
-            f.write(guide)
-        print(f"{self.name}: User guide saved.")
+        guide_file = f"data/output/{topic.replace(' ', '_')}_guide.txt"
+        try:
+            with open(guide_file, "w") as f:
+                f.write(guide)
+            print(f"{self.name}: User guide saved to {guide_file}")
+        except Exception as e:
+            print(f"{self.name}: Failed to save user guide: {e}")
 
     def publish(self, topic: str) -> None:
         print(f"{self.name}: Publishing research for '{topic}'...")
         time.sleep(1)
-        with open("data/output/publish_log.txt", "a") as f:
-            f.write(f"{time.ctime()}: Published {topic} to Tech AI Journal\n")
+        publish_log = "data/output/publish_log.txt"
+        try:
+            with open(publish_log, "a") as f:
+                f.write(f"{time.ctime()}: Published {topic} to Tech AI Journal\n")
+            print(f"{self.name}: Publication logged to {publish_log}")
+        except Exception as e:
+            print(f"{self.name}: Failed to log publication: {e}")

@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler
 
 class ResearchAnalyst(ResearchAgent):
     def __init__(self):
-        super().__init__("Analyst AI", "Research Analyst", 10)
+        super().__init__("Analyst AI", "Research Analyst", 10)  # Name, role, experience level
 
     def fetch_prostate_cancer_data(self, topic: str) -> pd.DataFrame:
         print(f"{self.name}: Fetching topic-specific data for '{topic}'...")
@@ -20,7 +20,16 @@ class ResearchAnalyst(ResearchAgent):
                 'cost_reduction': [5, 6, 8, 5.5, 7],
                 'survival_rate': [90, 92, 95, 91, 93]
             })
-        return pd.read_csv("data/input/healthcare_data.csv")
+        try:
+            return pd.read_csv("data/input/healthcare_data.csv")
+        except FileNotFoundError:
+            print(f"{self.name}: No fallback data found, using default mock data.")
+            return pd.DataFrame({
+                'training_hours': [10, 12, 15, 11, 13],
+                'efficiency_gain': [15, 17, 20, 16, 18],
+                'outcome_improvement': [80, 82, 85, 81, 83],
+                'cost_reduction': [4, 5, 6, 4.5, 5.5]
+            })
 
     def analyze_data(self, hypothesis: dict) -> dict:
         print(f"{self.name}: Processing dataset for '{hypothesis['topic']}'...")
@@ -42,7 +51,7 @@ class ResearchAnalyst(ResearchAgent):
             Dense(1)
         ])
         eff_model.compile(optimizer='adam', loss='mse')
-        eff_model.fit(X_scaled, y_eff, epochs=200, batch_size=2, verbose=0)  # More epochs, small batch
+        eff_model.fit(X_scaled, y_eff, epochs=200, batch_size=2, verbose=0)
         eff_pred = float(eff_model.predict(scaler.transform([[14]]), verbose=0)[0][0])
         
         # Neural network for outcome
@@ -59,7 +68,7 @@ class ResearchAnalyst(ResearchAgent):
         # Metrics
         avg_gain = data['efficiency_gain'].mean()
         avg_cost_reduction = data['cost_reduction'].mean()
-        avg_survival = data['survival_rate'].mean()
+        avg_survival = data.get('survival_rate', pd.Series([0])).mean()
         
         recommendation = "Increase training hours to 14+ for optimal efficiency and outcomes" if eff_pred > avg_gain else "Optimize current training process"
         
