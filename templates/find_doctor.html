@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AI Disease Diagnostics</title>
+    <title>Find a Doctor</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -28,7 +28,7 @@
             text-decoration: underline;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 20px auto;
             padding: 20px;
             background-color: white;
@@ -37,39 +37,28 @@
         }
         h1 {
             color: #2c3e50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
             text-align: center;
         }
         h2 {
             color: #34495e;
             margin-top: 20px;
         }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .doctor {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        label {
+        a {
+            color: #4CAF50;
+            text-decoration: none;
             font-weight: bold;
         }
-        textarea, select, input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1em;
-        }
-        input[type="submit"] {
-            padding: 10px;
-            background-color: #4A90E2;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s;
-        }
-        input[type="submit"]:hover {
-            background-color: #357ABD;
+        a:hover {
+            text-decoration: underline;
         }
         .footer {
             text-align: center;
@@ -100,27 +89,30 @@
         </div>
     </div>
     <div class="container">
-        <h1>AI Disease Diagnostics</h1>
-        <h2>Symptom Checker</h2>
-        <p>Tell us about your symptoms to get preliminary insights:</p>
-        <form method="POST" enctype="multipart/form-data">
-            <label for="symptoms">Symptoms:</label>
-            <textarea id="symptoms" name="symptoms" placeholder="Enter your symptoms here..." rows="4"></textarea>
-            
-            <label for="disease">Select Disease:</label>
-            <select id="disease" name="disease">
-                <option value="Prostate cancer">Prostate cancer</option>
-                <option value="Alzheimer's">Alzheimer's</option>
-                <option value="Diabetes">Diabetes</option>
-            </select>
-            <p>AI suggests: Analyzing data for the selected disease.</p>
-            
-            <label for="file">Upload File:</label>
-            <input type="file" id="file" name="file">
-            <p>ALLOWED: Select appropriate file type based on disease.</p>
-            
-            <input type="submit" value="Diagnose">
-        </form>
+        <h1>Find a Doctor</h1>
+        <p>Search for doctors by specialty to get the care you need:</p>
+        <h2>Oncology (Cancer Specialists)</h2>
+        <div class="doctor">
+            <p><strong>Dr. Jane Smith</strong></p>
+            <p>Specialty: Oncology (Prostate Cancer)</p>
+            <p>Contact: (555) 123-4567</p>
+            <p>Location: New York, NY</p>
+        </div>
+        <h2>Neurology (Alzheimer's Specialists)</h2>
+        <div class="doctor">
+            <p><strong>Dr. Michael Brown</strong></p>
+            <p>Specialty: Neurology (Alzheimer's)</p>
+            <p>Contact: (555) 987-6543</p>
+            <p>Location: Los Angeles, CA</p>
+        </div>
+        <h2>Endocrinology (Diabetes Specialists)</h2>
+        <div class="doctor">
+            <p><strong>Dr. Emily Davis</strong></p>
+            <p>Specialty: Endocrinology (Diabetes)</p>
+            <p>Contact: (555) 456-7890</p>
+            <p>Location: Chicago, IL</p>
+        </div>
+        <p><a href="/">Back to Home</a></p>
     </div>
     <div class="footer">
         Developed by Sifiso Cyprian Shezi | <a href="https://www.linkedin.com/in/sifiso-shezi">LinkedIn</a>

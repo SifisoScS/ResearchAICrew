@@ -31,3 +31,4 @@ Sat Apr  5 14:32:40 2025: Published Brain cancer to Tech AI Journal
 Sat Apr  5 14:35:21 2025: Published Prostate cancer to Tech AI Journal
 Sat Apr  5 14:42:57 2025: Published Prostate cancer to Tech AI Journal
 Sat Apr  5 15:33:52 2025: Published Prostate cancer to Tech AI Journal
+Sat Apr  5 16:41:11 2025: Published Alzheimer's to Tech AI Journal
