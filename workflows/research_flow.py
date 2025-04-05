@@ -1,6 +1,7 @@
 from agents.professor import ResearchProfessor
 from agents.analyst import ResearchAnalyst
 from agents.writer import ResearchTechnicalWriter
+from agents.clinician import ClinicianAgent
 
 def research_workflow(topic: str):
     print(f"Starting research on: {topic}\n")
@@ -9,6 +10,7 @@ def research_workflow(topic: str):
     professor = ResearchProfessor()
     analyst = ResearchAnalyst()
     writer = ResearchTechnicalWriter()
+    clinician = ClinicianAgent()
     
     # Research process
     print(f"{professor.name} ({professor.role}) is ready to contribute!")
@@ -23,11 +25,16 @@ def research_workflow(topic: str):
     refined_hypothesis = professor.review_analysis(hypothesis, analysis)
     print(f"Refined Hypothesis v{refined_hypothesis['version']}: {refined_hypothesis['hypothesis']}\n")
     
+    print(f"{clinician.name} ({clinician.role}) is ready to contribute!")
+    clinical_advice = clinician.provide_recommendations(refined_hypothesis, analysis)
+    print(f"Clinical Advice: {clinical_advice}\n")
+    
     print(f"{writer.name} ({writer.role}) is ready to contribute!")
     report = writer.write_report(refined_hypothesis, analysis)
     writer.draft_user_guide(topic)
     writer.publish(topic)
+    writer.create_visualization(topic, analysis.get('nn_predictions', {}))  # Pass predictions
     print("Report:")
     print(report)
     
-    return report  # Return report for Flask 
+    return report, clinical_advice
