@@ -49,3 +49,5 @@ Sat Apr  5 14:21:28 2025: Summary of 'Study 'ML study related to Brain cancer' i
 Sat Apr  5 14:31:38 2025: Summary of 'Study 'ML study related to Brain cancer' implications': Reviewed 10 studies, found ML improves Brain cancer efficiency by 15-25%.
 Sat Apr  5 14:34:22 2025: Summary of 'Study 'ML study related to Prostate cancer' implications': Reviewed 10 studies, found ML improves Prostate cancer efficiency by 15-25%.
 Sat Apr  5 14:41:55 2025: Summary of 'Study 'ML study related to Prostate cancer' implications': Reviewed 10 studies, found ML improves Prostate cancer efficiency by 15-25%.
+Sat Apr  5 15:32:02 2025: Summary of 'Study 'ML study related to Prostate cancer' implications': Reviewed 10 studies, found ML improves Prostate cancer efficiency by 15-25%.
+Sat Apr  5 16:40:11 2025: Summary of 'Study 'ML study related to Alzheimer's' implications': Reviewed 10 studies, found ML improves Alzheimer's efficiency by 15-25%.
