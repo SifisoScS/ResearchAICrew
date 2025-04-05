@@ -22,15 +22,22 @@
         p {
             margin: 10px 0;
         }
-        .report {
+        .report, .advice {
             background-color: #f9f9f9;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .advice {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
         }
         .plot {
             margin-top: 20px;
             max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         a {
             color: #4CAF50;
@@ -47,8 +54,11 @@
     <div class="report">
         {{ report_html | safe }}
     </div>
+    <div class="advice">
+        {{ advice_html | safe }}
+    </div>
     {% if plot_path %}
-        <img src="{{ url_for('static', filename=plot_path[6:]) }}" alt="Multi-Metric Plot" class="plot">
+        <img src="{{ url_for('static', filename=plot_path[7:]) }}" alt="Multi-Metric Plot" class="plot">
     {% endif %}
     <p><a href="/">Back to Home</a></p>
 </body>

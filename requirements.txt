@@ -14,6 +14,7 @@ fonttools==4.57.0
 gast==0.6.0
 google-pasta==0.2.0
 grpcio==1.71.0
+gunicorn==23.0.0
 h5py==3.13.0
 idna==3.10
 itsdangerous==2.2.0
@@ -29,12 +30,14 @@ matplotlib==3.10.1
 mdurl==0.1.2
 ml_dtypes==0.5.1
 namex==0.0.8
+narwhals==1.33.0
 numpy==2.1.3
 opt_einsum==3.4.0
 optree==0.14.1
 packaging==24.2
 pandas==2.2.3
 pillow==11.1.0
+plotly==6.0.1
 protobuf==5.29.4
 Pygments==2.19.1
 pyparsing==3.2.3
