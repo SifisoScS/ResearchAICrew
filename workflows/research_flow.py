@@ -33,8 +33,7 @@ def research_workflow(topic: str):
     report = writer.write_report(refined_hypothesis, analysis)
     writer.draft_user_guide(topic)
     writer.publish(topic)
-    writer.create_visualization(topic, analysis.get('nn_predictions', {}))  # Pass predictions
     print("Report:")
     print(report)
     
-    return report, clinical_advice
+    return report, clinical_advice  # Return both for Flask
