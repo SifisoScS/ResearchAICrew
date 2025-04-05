@@ -2,113 +2,157 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Resources</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #29ABE2;
+            --secondary-color: #6C757D;
+            --accent-color: #7952B3;
+            --background-color: #F8F9FA;
+            --text-color: #212529;
+            --dark-mode-bg: #343A40;
+            --dark-mode-text: #F8F9FA;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f2f5;
-            color: #333;
-        }
-        .navbar {
-            background-color: #4A90E2;
-            padding: 10px 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            transition: background-color 0.3s, color 0.3s;
         }
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
+
+        body.dark-mode {
+            background-color: var(--dark-mode-bg);
+            color: var(--dark-mode-text);
         }
-        .navbar a:hover {
-            text-decoration: underline;
+
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 0;
         }
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 10px;
-            text-align: center;
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
         }
-        h2 {
-            color: #34495e;
-            margin-top: 20px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin: 10px 0;
-        }
-        a {
-            color: #4A90E2;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+
         .footer {
+            background-color: var(--primary-color);
+            color: #fff;
             text-align: center;
-            padding: 10px;
-            background-color: #4A90E2;
-            color: white;
-            position: fixed;
+            padding: 1rem 0;
+            margin-top: auto;
+            position: sticky;
             bottom: 0;
             width: 100%;
-        }
-        .footer a {
-            color: white;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <a href="/">AI Disease Diagnostics</a>
-        <div>
-            <a href="/diagnosis">Diagnosis</a>
-            <a href="/resources">Health Resources</a>
-            <a href="/find-doctor">Find Doctor</a>
-            <a href="/logout">Logout</a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">AI Disease Diagnostics</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/diagnosis">Diagnosis</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/resources">Health Resources</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/find-doctor">Find Doctor</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i id="darkModeToggle" class="fas fa-moon" onclick="toggleDarkMode()"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Health Resources</h1>
+        <p class="text-center">Explore the following resources to learn more about various health conditions:</p>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Prostate Cancer</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><a href="https://www.cancer.org/cancer/prostate-cancer.html" target="_blank">Understanding Prostate Cancer - American Cancer Society</a></li>
+                            <li><a href="https://www.mayoclinic.org/diseases-conditions/prostate-cancer/symptoms-causes/syc-20353087" target="_blank">Prostate Cancer Symptoms and Causes - Mayo Clinic</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Alzheimer's Disease</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><a href="https://www.alz.org/alzheimers-dementia/what-is-alzheimers" target="_blank">What is Alzheimer's? - Alzheimer's Association</a></li>
+                            <li><a href="https://www.nia.nih.gov/health/what-is-alzheimers-disease" target="_blank">Alzheimer's Disease Fact Sheet - National Institute on Aging</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Diabetes</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><a href="https://www.diabetes.org/diabetes" target="_blank">Understanding Diabetes - American Diabetes Association</a></li>
+                            <li><a href="https://www.cdc.gov/diabetes/basics/diabetes.html" target="_blank">Diabetes Basics - CDC</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Mental Health Support</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Access articles, guided meditation sessions, and stress management tips to enhance your mental well-being.</p>
+                        <a href="https://www.who.int/health-topics/mental-health#tab=tab_1" target="_blank" class="btn btn-primary">Explore Mental Health Resources</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="/" class="btn btn-primary">Back to Home</a>
         </div>
     </div>
-    <div class="container">
-        <h1>Health Resources</h1>
-        <p>Explore the following resources to learn more about various health conditions:</p>
-        <h2>Prostate Cancer</h2>
-        <ul>
-            <li><a href="https://www.cancer.org/cancer/prostate-cancer.html" target="_blank">Understanding Prostate Cancer - American Cancer Society</a></li>
-            <li><a href="https://www.mayoclinic.org/diseases-conditions/prostate-cancer/symptoms-causes/syc-20353087" target="_blank">Prostate Cancer Symptoms and Causes - Mayo Clinic</a></li>
-        </ul>
-        <h2>Alzheimer's Disease</h2>
-        <ul>
-            <li><a href="https://www.alz.org/alzheimers-dementia/what-is-alzheimers" target="_blank">What is Alzheimer's? - Alzheimer's Association</a></li>
-            <li><a href="https://www.nia.nih.gov/health/what-is-alzheimers-disease" target="_blank">Alzheimer's Disease Fact Sheet - National Institute on Aging</a></li>
-        </ul>
-        <h2>Diabetes</h2>
-        <ul>
-            <li><a href="https://www.diabetes.org/diabetes" target="_blank">Understanding Diabetes - American Diabetes Association</a></li>
-            <li><a href="https://www.cdc.gov/diabetes/basics/diabetes.html" target="_blank">Diabetes Basics - CDC</a></li>
-        </ul>
-        <p><a href="/">Back to Home</a></p>
-    </div>
-    <div class="footer">
-        Developed by Sifiso Cyprian Shezi | <a href="https://www.linkedin.com/in/sifiso-shezi">LinkedIn</a>
-    </div>
+
+    <footer class="footer">
+        <p class="mb-0">Developed by Sifiso Cyprian Shezi | <a href="https://www.linkedin.com/in/sifiso-shezi" class="text-white">LinkedIn</a></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('darkModeToggle');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        }
+    </script>
 </body>
 </html>

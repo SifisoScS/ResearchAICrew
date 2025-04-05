@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, flash
 import markdown
 import signal
 import sys
@@ -8,6 +8,7 @@ from workflows.research_flow import research_workflow
 print("Starting app.py...")
 
 app = Flask(__name__)
+app.secret_key = "your_secret_key_here"  # Required for flash messages
 print("Created Flask app")
 
 # Global variable to store the server instance
@@ -35,7 +36,7 @@ def analyze_symptoms(symptoms: str, disease: str) -> dict:
 
 # Mock file analysis (to be replaced with real analysis later)
 def analyze_file(file, disease: str) -> dict:
-    if file:
+    if file and file.filename:
         return {"disease": disease, "probability": 0.9, "message": f"File analysis suggests high likelihood of {disease}."}
     return {"disease": disease, "probability": 0.0, "message": "No file uploaded for analysis."}
 
@@ -46,13 +47,26 @@ def index():
         symptoms = request.form.get('symptoms', '')
         disease = request.form.get('disease', '')
         file = request.files.get('file')
-        
+
         print(f"Received symptoms: {symptoms}, disease: {disease}, file: {file}")
-        
+
+        # Validate file on server side
+        file_result = {"disease": disease, "probability": 0.0, "message": "No file uploaded for analysis."}
+        if file and file.filename:
+            allowed_extensions = {
+                'prostate cancer': ['.dcm', '.nii'],
+                'alzheimer\'s': ['.dcm', '.nii'],
+                'diabetes': ['.fastq', '.bam']
+            }
+            file_extension = '.' + file.filename.split('.')[-1].lower()
+            if disease.lower() not in allowed_extensions or file_extension not in allowed_extensions[disease.lower()]:
+                flash(f"Invalid file type for {disease}. Allowed: {', '.join(allowed_extensions[disease.lower()])}", "danger")
+                return render_template('index.html')
+
         # Analyze symptoms
         symptom_result = analyze_symptoms(symptoms, disease)
         
-        # Analyze file (if uploaded)
+        # Analyze file (if uploaded and valid)
         file_result = analyze_file(file, disease)
         
         # Run research workflow for the selected disease
@@ -61,6 +75,7 @@ def index():
             report_html = markdown.markdown(report)
             advice_html = markdown.markdown(clinical_advice)
             plot_path = f"static/{disease.replace(' ', '_')}_multi_metric_plot.png"
+            flash("Diagnosis and research completed successfully!", "success")
             print("Rendering result.html")
             return render_template('result.html', 
                                  report_html=report_html, 
@@ -69,21 +84,16 @@ def index():
                                  symptom_result=symptom_result,
                                  file_result=file_result)
         except Exception as e:
-            error_html = markdown.markdown(f"**Error**: {str(e)}")
+            flash(f"Error during processing: {str(e)}", "danger")
             print(f"Error occurred: {str(e)}")
             return render_template('result.html', 
-                                 report_html=error_html, 
+                                 report_html=markdown.markdown(f"**Error**: {str(e)}"), 
                                  advice_html="", 
                                  plot_path=None,
                                  symptom_result=symptom_result,
                                  file_result=file_result)
     print("Rendering index.html")
     return render_template('index.html')
-
-# Placeholder routes for navbar links
-@app.route('/diagnosis')
-def diagnosis():
-    return "Diagnosis page (coming soon)"
 
 @app.route('/resources')
 def resources():
@@ -92,6 +102,10 @@ def resources():
 @app.route('/find-doctor')
 def find_doctor():
     return render_template('find_doctor.html')
+
+@app.route('/diagnosis')
+def diagnosis():
+    return "Diagnosis page (coming soon)"
 
 @app.route('/logout')
 def logout():
