@@ -1,9 +1,11 @@
 from core.base_agent import ResearchAgent
 import time
 import os
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 import pandas as pd
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+import numpy as np
 
 class ResearchTechnicalWriter(ResearchAgent):
     def __init__(self):
@@ -61,105 +63,47 @@ class ResearchTechnicalWriter(ResearchAgent):
                     'cost_reduction': [4, 5, 6, 4.5, 5.5]
                 })
         
-        # Create a subplot with three y-axes
-        fig = make_subplots(specs=[[{"secondary_y": True}]])
-        
-        # Efficiency scatter
-        fig.add_trace(
-            go.Scatter(
-                x=data['training_hours'],
-                y=data['efficiency_gain'],
-                mode='markers',
-                name='Efficiency (%)',
-                marker=dict(color='blue', size=10),
-                hovertemplate='Training Hours: %{x}<br>Efficiency: %{y}%<extra></extra>'
-            ),
-            secondary_y=False
-        )
-        
-        # NN Efficiency prediction
+        fig, ax1 = plt.subplots(figsize=(10, 6))
+        ax1.scatter(data['training_hours'], data['efficiency_gain'], color='blue', label='Efficiency (%)')
         if nn_predictions and 'efficiency' in nn_predictions:
-            fig.add_trace(
-                go.Scatter(
-                    x=[14],
-                    y=[nn_predictions['efficiency']],
-                    mode='markers',
-                    name=f'NN Eff Pred (14h): {nn_predictions["efficiency"]:.1f}%',
-                    marker=dict(color='blue', symbol='star', size=15),
-                    hovertemplate='Training Hours: 14<br>Efficiency: %{y}%<extra></extra>'
-                ),
-                secondary_y=False
-            )
+            ax1.plot(14, nn_predictions['efficiency'], 'b*', markersize=15, label=f'NN Eff Pred (14h): {nn_predictions["efficiency"]:.1f}%')
+        ax1.set_xlabel('Training Hours')
+        ax1.set_ylabel('Efficiency Gain (%)', color='blue')
+        ax1.tick_params(axis='y', labelcolor='blue')
         
-        # Outcome scatter
-        fig.add_trace(
-            go.Scatter(
-                x=data['training_hours'],
-                y=data['outcome_improvement'],
-                mode='markers',
-                name='Outcome (%)',
-                marker=dict(color='green', size=10),
-                hovertemplate='Training Hours: %{x}<br>Outcome: %{y}%<extra></extra>'
-            ),
-            secondary_y=True
-        )
-        
-        # NN Outcome prediction
+        ax2 = ax1.twinx()
+        ax2.scatter(data['training_hours'], data['outcome_improvement'], color='green', label='Outcome (%)')
         if nn_predictions and 'outcome' in nn_predictions:
-            fig.add_trace(
-                go.Scatter(
-                    x=[14],
-                    y=[nn_predictions['outcome']],
-                    mode='markers',
-                    name=f'NN Out Pred (14h): {nn_predictions["outcome"]:.1f}%',
-                    marker=dict(color='green', symbol='star', size=15),
-                    hovertemplate='Training Hours: 14<br>Outcome: %{y}%<extra></extra>'
-                ),
-                secondary_y=True
-            )
+            ax2.plot(14, nn_predictions['outcome'], 'g*', markersize=15, label=f'NN Out Pred (14h): {nn_predictions["outcome"]:.1f}%')
+        ax2.set_ylabel('Outcome Improvement (%)', color='green')
+        ax2.tick_params(axis='y', labelcolor='green')
         
-        # Cost Reduction scatter (on the same axis as Outcome for simplicity)
-        fig.add_trace(
-            go.Scatter(
-                x=data['training_hours'],
-                y=data['cost_reduction'],
-                mode='markers',
-                name='Cost Reduction (%)',
-                marker=dict(color='red', size=10),
-                hovertemplate='Training Hours: %{x}<br>Cost Reduction: %{y}%<extra></extra>',
-                yaxis='y3'
-            )
-        )
+        ax3 = ax1.twinx()
+        ax3.spines['right'].set_position(('outward', 60))
+        ax3.scatter(data['training_hours'], data['cost_reduction'], color='red', label='Cost Reduction (%)')
+        ax3.set_ylabel('Cost Reduction (%)', color='red')
+        ax3.tick_params(axis='y', labelcolor='red')
         
-        # Update layout
-        fig.update_layout(
-            title=f'Multi-Metric Analysis for {topic}',
-            xaxis_title='Training Hours',
-            yaxis_title='Efficiency Gain (%)',
-            yaxis2_title='Outcome Improvement / Cost Reduction (%)',
-            yaxis3=dict(
-                title='Cost Reduction (%)',
-                overlaying='y2',
-                side='right',
-                showgrid=False
-            ),
-            legend=dict(x=0, y=1.1, orientation='h'),
-            hovermode='closest',
-            plot_bgcolor='white',
-            margin=dict(t=100)
-        )
+        plt.title(f'Multi-Metric Analysis for {topic}')
+        lines = [ax1.plot([], [], 'b-')[0], ax2.plot([], [], 'g-')[0], ax3.plot([], [], 'r-')[0]]
+        labels = ['Efficiency', 'Outcome', 'Cost Reduction']
+        if nn_predictions:
+            lines.extend([ax1.plot([], [], 'b*')[0], ax2.plot([], [], 'g*')[0]])
+            labels.extend([f'NN Eff Pred (14h)', f'NN Out Pred (14h)'])
+        plt.legend(lines, labels, loc='upper left')
+        plt.grid(True)
         
-        # Update axes (fixed titlefont to title_font)
-        fig.update_yaxes(title_font=dict(color='blue'), tickfont=dict(color='blue'), secondary_y=False)
-        fig.update_yaxes(title_font=dict(color='green'), tickfont=dict(color='green'), secondary_y=True)
+        # Ensure static directory exists
+        static_dir = "static"
+        os.makedirs(static_dir, exist_ok=True)
         
-        # Save as HTML
-        plot_file = f"static/{topic.replace(' ', '_')}_multi_metric_plot.html"
+        plot_file = f"{static_dir}/{topic.replace(' ', '_')}_multi_metric_plot.png"
         try:
-            fig.write_html(plot_file)
-            print(f"{self.name}: Interactive plot saved to {plot_file}")
+            plt.savefig(plot_file)
+            plt.close()
+            print(f"{self.name}: Plot saved to {plot_file}")
         except Exception as e:
-            print(f"{self.name}: Failed to save interactive plot: {e}")
+            print(f"{self.name}: Failed to save plot: {e}")
 
     def draft_user_guide(self, topic: str) -> None:
         print(f"{self.name}: Drafting user guide for '{topic}'...")
