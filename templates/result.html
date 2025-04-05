@@ -5,15 +5,25 @@
     <title>Research Results</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            line-height: 1.6;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
             color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         h1 {
             color: #2c3e50;
             border-bottom: 2px solid #4CAF50;
             padding-bottom: 10px;
+            text-align: center;
         }
         h2 {
             color: #34495e;
@@ -22,34 +32,56 @@
         p {
             margin: 10px 0;
         }
-        .report {
+        .report, .advice {
             background-color: #f9f9f9;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .advice {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
         }
         .plot {
             margin-top: 20px;
             max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         a {
-            color: #4CAF50;
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
             text-decoration: none;
-            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
         a:hover {
-            text-decoration: underline;
+            background-color: #45a049;
+        }
+        .back-link {
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <h1>Research Results</h1>
-    <div class="report">
-        {{ report_html | safe }}
+    <div class="container">
+        <h1>Research Results</h1>
+        <div class="report">
+            {{ report_html | safe }}
+        </div>
+        <div class="advice">
+            {{ advice_html | safe }}
+        </div>
+        {% if plot_path %}
+            <img src="{{ url_for('static', filename=plot_path[7:]) }}" alt="Multi-Metric Plot" class="plot">
+        {% endif %}
+        <div class="back-link">
+            <a href="/">Back to Home</a>
+        </div>
     </div>
-    {% if plot_path %}
-        <img src="{{ url_for('static', filename=plot_path[6:]) }}" alt="Multi-Metric Plot" class="plot">
-    {% endif %}
-    <p><a href="/">Back to Home</a></p>
 </body>
 </html>

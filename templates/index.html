@@ -4,20 +4,95 @@
     <meta charset="UTF-8">
     <title>ResearchAICrew</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        h1 { color: #333; }
-        form { margin-top: 20px; }
-        input[type="text"] { padding: 8px; width: 300px; }
-        input[type="submit"] { padding: 8px 16px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
-        input[type="submit"]:hover { background-color: #45a049; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            text-align: center;
+            font-size: 1.1em;
+        }
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
+    <script>
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('submitBtn').disabled = true;
+        }
+    </script>
 </head>
 <body>
-    <h1>ResearchAICrew: AI-Driven Research</h1>
-    <p>Enter a research topic to analyze (e.g., "Prostate cancer"):</p>
-    <form method="POST">
-        <input type="text" name="topic" placeholder="Enter research topic" required>
-        <input type="submit" value="Analyze">
-    </form>
+    <div class="container">
+        <h1>ResearchAICrew: AI-Driven Research</h1>
+        <p>Enter a research topic to analyze (e.g., "Prostate cancer"):</p>
+        <form method="POST" onsubmit="showLoading()">
+            <input type="text" name="topic" placeholder="Enter research topic" required>
+            <input type="submit" id="submitBtn" value="Analyze">
+        </form>
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Analyzing...</p>
+        </div>
+    </div>
 </body>
 </html>

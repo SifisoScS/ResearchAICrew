@@ -90,4 +90,8 @@ class ResearchAnalyst(ResearchAgent):
             f"NN predicts outcome {out_pred:.1f}% improvement. "
             f"Recommendation: {recommendation}."
         )
-        return {"topic": hypothesis["topic"], "insights": insights}
+        return {
+            "topic": hypothesis["topic"],
+            "insights": insights,
+            "nn_predictions": {"efficiency": eff_pred, "outcome": out_pred}
+        }
